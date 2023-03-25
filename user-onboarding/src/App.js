@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 import schema from './Validation/formSchema';
 import * as yup from 'yup';
 import Form from './Components/Form'
+
 
 const initialFormValues = {
   first: '',
@@ -24,22 +26,16 @@ function App() {
 
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [users, setUsers] = useState([]);
 
-  const onChange = (name, value) => {
-    validate(name, value);
-    setFormValues({ ...formValues, [name]:value});
-  }
-
-  const onSubmit = () => {
-    // setFormValues(
-    // {
-    // first:'',
-    // last:'', 
-    // email:'', 
-    // password:'', 
-    // tos: false
-    // }
-    // )
+  const handleSubmit = () => {
+    axios.post("https://reqres.in/api/users", formValues)
+      .then(res => {
+        console.log(res.data);
+        setUsers([ res.data, ...users ])
+      })
+      .catch(err => console.error(err))
+      .finally(() => setFormValues(initialFormValues))
   }
 
   const validate = (name, value) => {
@@ -49,14 +45,25 @@ function App() {
       .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
   }
 
+  const handleChange = (name, value) => {
+    validate(name, value);
+    setFormValues({ ...formValues, [name]:value});
+  }
+
   return (
     <div className='App'>
       <Form 
         values={formValues}
-        change={onChange}
-        submit={onSubmit}
+        change={handleChange}
         errors={formErrors}
+        submit={handleSubmit}
       />
+      {/* {users.map(user => (
+        <div key={user.id}>
+          <p>{user.createdAt}</p>
+          <p>{user.email}</p>
+        </div>
+      ))} */}
     </div>
   );
 }

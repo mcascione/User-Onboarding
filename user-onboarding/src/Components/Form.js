@@ -2,13 +2,13 @@ import React from 'react';
 
 const Form = (props) => {
 
-    const {change, submit} = props;
-    const {first, last, email, password, tos, errors} = props.values;
+    const { change, submit, errors } = props;
+    const { first, last, email, password, tos } = props.values;
 
     const onChange = (e) =>  {
         const {name, value, checked, type} = e.target;
         const valueToUse = type === 'checkbox' ? checked : value;
-        change(name, value);
+        change(name, valueToUse);
     }
 
     const onSubmit = (e) => {
@@ -19,14 +19,13 @@ const Form = (props) => {
     return (
     <div>
         <h1>Sign Up</h1>
-        {/* <p>{errors.first}</p>
+        <p>{errors.first}</p>
         <p>{errors.last}</p>
         <p>{errors.email}</p>
         <p>{errors.password}</p>
-        <p>{errors.tos}</p> */}
+        <p>{errors.tos}</p>
         <form onSubmit={onSubmit}> 
-            <label>
-                First Name
+            <label> First Name
                 <input
                     name="first"
                     type="text"
@@ -35,8 +34,7 @@ const Form = (props) => {
                     onChange={onChange}
                 />
             </label>
-            <label>
-                Last Name
+            <label> Last Name
                 <input
                     name="last"
                     type="text"
@@ -45,8 +43,7 @@ const Form = (props) => {
                     onChange={onChange}
                 />
             </label>
-            <label>
-                Enter Your Email
+            <label> Enter Your Email
                 <input
                     name="email"
                     type="email"
@@ -55,8 +52,7 @@ const Form = (props) => {
                     onChange={onChange}
                 />
             </label>
-            <label>
-                Create a Password
+            <label> Create a Password
                 <input
                     name="password"
                     type="password"    
@@ -65,8 +61,7 @@ const Form = (props) => {
                     onChange={onChange}
                 />
             </label>
-            <label>
-                Agree to the Terms of Service
+            <label> Agree to the Terms of Service
                 <input 
                     name="tos"
                     type="checkbox"
