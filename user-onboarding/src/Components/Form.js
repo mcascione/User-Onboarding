@@ -2,7 +2,7 @@ import React from 'react';
 
 const Form = (props) => {
 
-    const { change, submit, errors } = props;
+    const { change, submit, errors, disabled } = props;
     const { first, last, email, password, tos } = props.values;
 
     const onChange = (e) =>  {
@@ -69,7 +69,7 @@ const Form = (props) => {
                     onChange={onChange}
                 />
             </label>
-            <input type='submit' value='Create Your Account'/>
+            <input disabled={disabled} type='submit' value='Create Your Account'/>
         </form>
      </div>
     )
