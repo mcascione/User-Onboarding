@@ -33,17 +33,24 @@ describe('User Onboarding App', function(){
     })
 
     it ('tests the submit button', function(){
-        cy.get('[type="submit"]').click();
+        cy.get(':nth-child(1) > input')
+            .type('Miranda')
+        cy.get(':nth-child(2) > input')
+            .type('Cascione')
+        cy.get(':nth-child(3) > input')
+            .type('me@gmail.com')
+        cy.get(':nth-child(4) > input')
+            .type('12345a')
+        cy.get(':nth-child(5) > input').check();
+        cy.get('[type="submit"]')
+            .click();
     })
 
     it ('tests the error message shows if the first name input is left empty', function(){
-        cy.get(':nth-child(2) > input')
-            // .type('Cascione')
-            .trigger('{validate}')
+        cy.get(':nth-child(1) > input')
+            .type('Miranda')
+            .clear()
+        cy.get('.App > div > :nth-child(2)')
 
     })
-
 })
-
-
-//  Check for form validation if an input is left empty
